@@ -1,10 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"os"
+	"strconv"
 
-	worker "github.com/innotech/hydra-worker-pong/vendors/github.com/innotech/hydra-worker-lib"
+	worker "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/innotech/hydra-worker-lib"
 )
 
 func main() {
@@ -17,21 +17,19 @@ func main() {
 
 	// New Worker connected to Hydra Load Balancer
 	mapByLimitWorker := worker.NewWorker(serverAddr, serviceName, verbose)
-	fn := func(instances []map[string]interface{}, args map[string]string) []interface{} {
-		limitAttr := args["limitAttr"]
-		limitValue := args["limitValue"]
-		mapSort := args["mapSort"]
+	fn := func(instances []interface{}, args map[string]interface{}) []interface{} {
+		limitAttr := args["limitAttr"].(string)
+		limitValue, _ := strconv.ParseFloat(args["limitValue"].(string), 64)
+		mapSort := args["mapSort"].(string)
 
-		mappedInstances := make([]map[string]interface{}, 2)
-		for _, instance := range instances {
-			if val, ok := mappedInstances[instance[limitAttr]]; ok {
-				if val < limitValue {
-					mappedInstances[0] = append(mappedInstances[0], instance)
-				} else {
-					mappedInstances[1] = append(mappedInstances[1], instance)
-				}
+		mappedInstances := make([][]map[string]interface{}, 2)
+		for _, i := range instances {
+			instance := i.(map[string]interface{})
+			value, _ := strconv.ParseFloat(instance["Info"].(map[string]interface{})[limitAttr].(string), 64)
+			if value < limitValue {
+				mappedInstances[0] = append(mappedInstances[0], instance)
 			} else {
-				// TODO:
+				mappedInstances[1] = append(mappedInstances[1], instance)
 			}
 		}
 
@@ -40,8 +38,10 @@ func main() {
 			computedInstances[0] = mappedInstances[1]
 			computedInstances[1] = mappedInstances[0]
 		} else {
-			computedInstances = mappedInstances
+			computedInstances[0] = mappedInstances[0]
+			computedInstances[1] = mappedInstances[1]
 		}
+
 		return computedInstances
 	}
 	mapByLimitWorker.Run(fn)
