@@ -1,0 +1,11 @@
+Package: hydra-worker-map-by-limit
+Version: 1-0
+Architecture: all
+Maintainer: innotech
+Installed-Size: 80
+Section: custom
+Priority: extra
+Description: Hydra Worker Map by Limit
+ Map instances by limit number and sort them
+ .
+
