@@ -12,7 +12,7 @@ cp hydra-worker-map-by-limit-init.d.sh ~/debbuild/etc/init.d/hydra-worker-map-by
 mkdir -p ~/debbuild/usr/local/hydra
 cp ../../bin/hydra-worker-map-by-limit  ~/debbuild/usr/local/hydra
 
-chmod -R 644 ~/debbuild/usr/local/hydra/* ~/debbuild/etc/hydra/*
+chmod -R 644 ~/debbuild/usr/local/hydra/*
 chmod 755 ~/debbuild/etc/init.d/hydra-worker-map-by-limit
 chmod 755 ~/debbuild/usr/local/hydra/hydra-worker-map-by-limit
 
