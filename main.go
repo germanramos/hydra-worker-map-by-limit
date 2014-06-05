@@ -25,9 +25,13 @@ func main() {
 		mappedInstances := make([][]map[string]interface{}, 2)
 		for _, i := range instances {
 			instance := i.(map[string]interface{})
-			value, _ := strconv.ParseFloat(instance["Info"].(map[string]interface{})[limitAttr].(string), 64)
-			if value < limitValue {
-				mappedInstances[0] = append(mappedInstances[0], instance)
+			if interfaceValue, ok := instance["Info"].(map[string]interface{})[limitAttr]; ok {
+				value, _ := strconv.ParseFloat(interfaceValue.(string), 64)
+				if value < limitValue {
+					mappedInstances[0] = append(mappedInstances[0], instance)
+				} else {
+					mappedInstances[1] = append(mappedInstances[1], instance)
+				}
 			} else {
 				mappedInstances[1] = append(mappedInstances[1], instance)
 			}
