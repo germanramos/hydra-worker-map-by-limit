@@ -8,15 +8,8 @@ import (
 )
 
 func main() {
-	if len(os.Args) < 3 {
-		panic("Invalid number of arguments, you need to add at least the arguments for the server address and the service name")
-	}
-	serverAddr := os.Args[1]  // e.g. "tcp://localhost:5555"
-	serviceName := os.Args[2] // e.g. map-by-limit
-	verbose := len(os.Args) >= 4 && os.Args[3] == "-v"
-
 	// New Worker connected to Hydra Load Balancer
-	mapByLimitWorker := worker.NewWorker(serverAddr, serviceName, verbose)
+	mapByLimitWorker := worker.NewWorker(os.Args)
 	fn := func(instances []interface{}, args map[string]interface{}) []interface{} {
 		limitAttr := args["limitAttr"].(string)
 		limitValue, _ := strconv.ParseFloat(args["limitValue"].(string), 64)

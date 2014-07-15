@@ -7,6 +7,7 @@ rm -rf ~/rpmbuild
 rpmdev-setuptree
 
 mkdir ~/rpmbuild/SOURCES/hydra-worker-map-by-limit-1
+cp ./fixtures/hydra-worker-map-by-limit.conf  ~/rpmbuild/SOURCES/hydra-worker-map-by-limit-1
 cp hydra-worker-map-by-limit-init.d.sh ~/rpmbuild/SOURCES/hydra-worker-map-by-limit-1
 cp ../../bin/hydra-worker-map-by-limit ~/rpmbuild/SOURCES/hydra-worker-map-by-limit-1
 
