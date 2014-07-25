@@ -14,9 +14,9 @@ cp ../../bin/hydra-worker-map-by-limit ~/rpmbuild/SOURCES/hydra-worker-map-by-li
 cp hydra-worker-map-by-limit.spec ~/rpmbuild/SPECS
 
 pushd ~/rpmbuild/SOURCES/
-tar czf hydra-worker-map-by-limit-1.0.tar.gz hydra-worker-map-by-limit-1/
+tar czf hydra-worker-map-by-limit-1.1.tar.gz hydra-worker-map-by-limit-1/
 cd ~/rpmbuild 
 rpmbuild -ba SPECS/hydra-worker-map-by-limit.spec
 
 popd
-cp ~/rpmbuild/RPMS/x86_64/hydra-worker-map-by-limit-1-0.x86_64.rpm .
+cp ~/rpmbuild/RPMS/x86_64/hydra-worker-map-by-limit-1-1.x86_64.rpm .
