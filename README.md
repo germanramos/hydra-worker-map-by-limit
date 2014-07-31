@@ -58,10 +58,12 @@ In Hydra Server configuration in the apps.json file (Default to /etc/hydra/apps.
 ```
 {
 	"worker": "MapByLimit",
-	"simple": "OK"
+	"limitAttr": "limit",
+	"limitValue": 50,
+	"mapSort": "reverse"
 }
 ```			
-This will sort the list of instances by round-robin algorithm remembering previous calls.
+This will map the instance list splitting it by a limit.
 
 # Run
 ```
