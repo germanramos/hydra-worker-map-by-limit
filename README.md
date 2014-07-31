@@ -35,7 +35,7 @@ Options set on the command line take precedence over all other sources.
 
 * `-hydra-server-addr` - The connection address for local workers uses ipc transport protocol (i.e `"ipc://hydra-0-backend.ipc"`) and for remote workers uses tcp transport protocol (i.e `"tcp://hydra0:7777"`).
 * `-priority-level` - This option sets the priority level of the worker in the hydra server. This means that if a worker has available a lower value than the other, the server will always use the first. It must be equal to 0 for local workers with ipc protocol. Defaults to `0`.
-* `-service-name` - The name under which the service is registered in the hydra server. (i.e `MapByLimit`).
+* `-service-name` - The name under which the service is registered in the Hydra Server. (i.e `MapByLimit`).
 * `-v, -verbose` - Show logs in DEBUG mode. Defaults to `false`.
 
 ## Configuration File
@@ -52,7 +52,10 @@ verbose = false
 
 In Hydra Server configuration in the apps.json file (Default to /etc/hydra/apps.json):
 
-- Name: "MapByLimit"
+- worker: The service name registered in the Hydra Server
+- limitAttr: This is the attribute containing the value for mapping
+- limitValue: This value will be the boundary between the maps
+- mapSort: if this option is set to `reverse` the order of the mapping will be invested 
 
 ## Configuration example (add to application balancers chain)
 ```
