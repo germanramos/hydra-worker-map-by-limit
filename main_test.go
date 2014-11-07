@@ -141,7 +141,7 @@ var _ = Describe("MapByLimit", func() {
 		})
 	})
 	Context("when limit attribute doesn't exist in some instances", func() {
-		FIt("should map instances correctly", func() {
+		It("should map instances correctly", func() {
 			delete(inputInstances[0].(map[string]interface{})["Info"].(map[string]interface{}), "cpuLoad")
 			workerArgs[MapSortKey] = "direct"
 			outputInstances := MapByLimit(inputInstances, workerArgs)
