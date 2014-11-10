@@ -1,12 +1,12 @@
 package leafnodes_test
 
 import (
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/leafnodes"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/gomega"
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo"
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/leafnodes"
+	. "github.com/onsi/gomega"
 
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/codelocation"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/types"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/codelocation"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/types"
 )
 
 var _ = Describe("It Nodes", func() {

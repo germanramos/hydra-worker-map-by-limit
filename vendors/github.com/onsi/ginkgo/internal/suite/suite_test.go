@@ -1,18 +1,21 @@
 package suite_test
 
 import (
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/suite"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/gomega"
+	"bytes"
+
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo"
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/suite"
+	. "github.com/onsi/gomega"
 
 	"math/rand"
 	"time"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/config"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/codelocation"
-	Failer "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/failer"
-	Writer "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/writer"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/reporters"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/types"
+
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/config"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/codelocation"
+	Failer "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/failer"
+	Writer "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/writer"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/reporters"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/types"
 )
 
 var _ = Describe("Suite", func() {
@@ -362,6 +365,34 @@ var _ = Describe("Suite", func() {
 					specSuite.SetAfterSuiteNode(func() {}, codelocation.New(0), 0)
 				}).Should(Panic())
 			})
+		})
+	})
+
+	Describe("By", func() {
+		It("writes to the GinkgoWriter", func() {
+			originalGinkgoWriter := GinkgoWriter
+			buffer := &bytes.Buffer{}
+
+			GinkgoWriter = buffer
+			By("Saying Hello GinkgoWriter")
+			GinkgoWriter = originalGinkgoWriter
+
+			Ω(buffer.String()).Should(ContainSubstring("STEP"))
+			Ω(buffer.String()).Should(ContainSubstring(": Saying Hello GinkgoWriter\n"))
+		})
+
+		It("calls the passed-in callback if present", func() {
+			a := 0
+			By("calling the callback", func() {
+				a = 1
+			})
+			Ω(a).Should(Equal(1))
+		})
+
+		It("panics if there is more than one callback", func() {
+			Ω(func() {
+				By("registering more than one callback", func() {}, func() {})
+			}).Should(Panic())
 		})
 	})
 })

@@ -10,8 +10,8 @@ package reporters
 
 import (
 	"fmt"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/config"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/types"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/config"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/types"
 	"io"
 	"strings"
 )

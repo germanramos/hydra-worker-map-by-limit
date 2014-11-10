@@ -1,9 +1,9 @@
 package spec_test
 
 import (
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/spec"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/gomega"
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo"
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/spec"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe("ParallelizedIndexRange", func() {

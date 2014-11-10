@@ -9,9 +9,9 @@ package remote
 
 import (
 	"encoding/json"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/config"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/reporters"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/types"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/config"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/reporters"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/types"
 	"io/ioutil"
 	"net"
 	"net/http"

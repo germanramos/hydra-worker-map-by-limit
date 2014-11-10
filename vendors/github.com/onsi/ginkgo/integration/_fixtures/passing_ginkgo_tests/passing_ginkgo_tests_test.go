@@ -1,9 +1,9 @@
 package passing_ginkgo_tests_test
 
 import (
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/integration/_fixtures/passing_ginkgo_tests"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/gomega"
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo"
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/integration/_fixtures/passing_ginkgo_tests"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe("PassingGinkgoTests", func() {
@@ -18,5 +18,13 @@ var _ = Describe("PassingGinkgoTests", func() {
 	It("should do it again", func() {
 		Ω(StringIdentity("foo")).Should(Equal("foo"))
 		Ω(IntegerIdentity(3)).Should(Equal(3))
+	})
+
+	It("should be able to run Bys", func() {
+		By("emitting one By")
+		Ω(3).Should(Equal(3))
+
+		By("emitting another By")
+		Ω(4).Should(Equal(4))
 	})
 })

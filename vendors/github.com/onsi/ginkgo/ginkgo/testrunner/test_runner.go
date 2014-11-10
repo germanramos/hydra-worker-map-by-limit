@@ -14,11 +14,11 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/config"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/ginkgo/testsuite"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/remote"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/reporters/stenographer"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/types"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/config"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/ginkgo/testsuite"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/remote"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/reporters/stenographer"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/types"
 )
 
 type TestRunner struct {
@@ -47,6 +47,10 @@ func New(suite testsuite.TestSuite, numCPU int, parallelStream bool, race bool, 
 
 func (t *TestRunner) Compile() error {
 	if t.compiled {
+		return nil
+	}
+
+	if t.Suite.Precompiled {
 		return nil
 	}
 
@@ -127,6 +131,9 @@ func (t *TestRunner) Run() RunResult {
 }
 
 func (t *TestRunner) CleanUp() {
+	if t.Suite.Precompiled {
+		return
+	}
 	os.Remove(t.compiledArtifact())
 }
 
@@ -346,8 +353,8 @@ func (t *TestRunner) combineCoverprofiles() {
 	}
 
 	lines := map[string]int{}
-
-	for _, coverProfile := range profiles {
+	lineOrder := []string{}
+	for i, coverProfile := range profiles {
 		for _, line := range strings.Split(string(coverProfile), "\n")[1:] {
 			if len(line) == 0 {
 				continue
@@ -356,12 +363,15 @@ func (t *TestRunner) combineCoverprofiles() {
 			count, _ := strconv.Atoi(components[len(components)-1])
 			prefix := strings.Join(components[0:len(components)-1], " ")
 			lines[prefix] += count
+			if i == 0 {
+				lineOrder = append(lineOrder, prefix)
+			}
 		}
 	}
 
 	output := []string{"mode: atomic"}
-	for line, count := range lines {
-		output = append(output, fmt.Sprintf("%s %d", line, count))
+	for _, line := range lineOrder {
+		output = append(output, fmt.Sprintf("%s %d", line, lines[line]))
 	}
 	finalOutput := strings.Join(output, "\n")
 	ioutil.WriteFile(filepath.Join(t.Suite.Path, fmt.Sprintf("%s.coverprofile", t.Suite.PackageName)), []byte(finalOutput), 0666)

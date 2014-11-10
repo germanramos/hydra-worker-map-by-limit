@@ -1,4 +1,4 @@
-package hydra_worker_map_by_limit_test
+package main_test
 
 import (
 	. "github.com/innotech/hydra-worker-map-by-limit"

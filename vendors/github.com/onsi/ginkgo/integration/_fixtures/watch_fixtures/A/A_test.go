@@ -1,10 +1,10 @@
 package A_test
 
 import (
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/integration/_fixtures/watch_fixtures/A"
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/integration/_fixtures/watch_fixtures/A"
 
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/gomega"
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe("A", func() {

@@ -1,14 +1,14 @@
 package remote_test
 
 import (
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/gomega"
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 
 	"time"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/config"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/remote"
-	st "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/reporters/stenographer"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/types"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/config"
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/remote"
+	st "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/reporters/stenographer"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/types"
 )
 
 var _ = Describe("Aggregator", func() {

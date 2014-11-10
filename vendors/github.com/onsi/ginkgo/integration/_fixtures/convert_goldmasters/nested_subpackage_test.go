@@ -1,7 +1,7 @@
 package subpackage
 
 import (
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo"
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo"
 )
 
 var _ = Describe("Testing with Ginkgo", func() {

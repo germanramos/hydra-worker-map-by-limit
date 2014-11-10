@@ -2,14 +2,16 @@ package reporters_test
 
 import (
 	"encoding/xml"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/config"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/codelocation"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/reporters"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/types"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/gomega"
 	"io/ioutil"
+	"os"
 	"time"
+
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/config"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/codelocation"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/reporters"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/types"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe("JUnit Reporter", func() {
@@ -28,13 +30,21 @@ var _ = Describe("JUnit Reporter", func() {
 	}
 
 	BeforeEach(func() {
-		outputFile = "/tmp/test.xml"
+		f, err := ioutil.TempFile("", "output")
+		Ω(err).ShouldNot(HaveOccurred())
+		f.Close()
+		outputFile = f.Name()
+
 		reporter = reporters.NewJUnitReporter(outputFile)
 
 		reporter.SpecSuiteWillBegin(config.GinkgoConfigType{}, &types.SuiteSummary{
 			SuiteDescription:		"My test suite",
 			NumberOfSpecsThatWillBeRun:	1,
 		})
+	})
+
+	AfterEach(func() {
+		os.RemoveAll(outputFile)
 	})
 
 	Describe("a passing test", func() {

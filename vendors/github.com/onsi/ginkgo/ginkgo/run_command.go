@@ -7,9 +7,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/config"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/ginkgo/testrunner"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/types"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/config"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/ginkgo/testrunner"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/types"
 )
 
 func BuildRunCommand() *Command {
@@ -37,7 +37,7 @@ func BuildRunCommand() *Command {
 }
 
 type SpecRunner struct {
-	commandFlags		*RunAndWatchCommandFlags
+	commandFlags		*RunWatchAndBuildCommandFlags
 	notifier		*Notifier
 	interruptHandler	*InterruptHandler
 	suiteRunner		*SuiteRunner
@@ -47,13 +47,19 @@ func (r *SpecRunner) RunSpecs(args []string, additionalArgs []string) {
 	r.commandFlags.computeNodes()
 	r.notifier.VerifyNotificationsAreAvailable()
 
-	suites, skippedPackages := findSuites(args, r.commandFlags.Recurse, r.commandFlags.SkipPackage)
+	suites, skippedPackages := findSuites(args, r.commandFlags.Recurse, r.commandFlags.SkipPackage, true)
 	if len(skippedPackages) > 0 {
 		fmt.Println("Will skip:")
 		for _, skippedPackage := range skippedPackages {
 			fmt.Println("  " + skippedPackage)
 		}
 	}
+
+	if len(skippedPackages) > 0 && len(suites) == 0 {
+		fmt.Println("All tests skipped!  Exiting...")
+		os.Exit(0)
+	}
+
 	if len(suites) == 0 {
 		complainAndQuit("Found no test suites")
 	}

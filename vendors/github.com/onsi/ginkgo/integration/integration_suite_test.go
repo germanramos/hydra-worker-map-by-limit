@@ -6,10 +6,10 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"strings"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/gomega"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/gomega/gexec"
+
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega/gexec"
 
 	"testing"
 	"time"
@@ -77,12 +77,6 @@ func copyIn(fixture string, destination string) {
 func ginkgoCommand(dir string, args ...string) *exec.Cmd {
 	cmd := exec.Command(pathToGinkgo, args...)
 	cmd.Dir = dir
-	cmd.Env = []string{}
-	for _, env := range os.Environ() {
-		if !strings.Contains(env, "GINKGO_REMOTE_REPORTING_SERVER") {
-			cmd.Env = append(cmd.Env, env)
-		}
-	}
 
 	return cmd
 }

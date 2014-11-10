@@ -5,14 +5,14 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/ginkgo/testsuite"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/ginkgo/testsuite"
 )
 
 type Notifier struct {
-	commandFlags *RunAndWatchCommandFlags
+	commandFlags *RunWatchAndBuildCommandFlags
 }
 
-func NewNotifier(commandFlags *RunAndWatchCommandFlags) *Notifier {
+func NewNotifier(commandFlags *RunWatchAndBuildCommandFlags) *Notifier {
 	return &Notifier{
 		commandFlags: commandFlags,
 	}

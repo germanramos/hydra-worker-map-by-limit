@@ -3,14 +3,14 @@ package spec_test
 import (
 	"math/rand"
 
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/spec"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/gomega"
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo"
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/spec"
+	. "github.com/onsi/gomega"
 
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/codelocation"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/containernode"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/leafnodes"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/types"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/codelocation"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/containernode"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/leafnodes"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/types"
 )
 
 var _ = Describe("Specs", func() {
@@ -18,12 +18,12 @@ var _ = Describe("Specs", func() {
 
 	newSpec := func(text string, flag types.FlagType) *Spec {
 		subject := leafnodes.NewItNode(text, func() {}, flag, codelocation.New(0), 0, nil, 0)
-		return New(subject, []*containernode.ContainerNode{})
+		return New(subject, []*containernode.ContainerNode{}, false)
 	}
 
 	newMeasureSpec := func(text string, flag types.FlagType) *Spec {
 		subject := leafnodes.NewMeasureNode(text, func(Benchmarker) {}, flag, codelocation.New(0), 0, nil, 0)
-		return New(subject, []*containernode.ContainerNode{})
+		return New(subject, []*containernode.ContainerNode{}, false)
 	}
 
 	newSpecs := func(args ...interface{}) *Specs {
@@ -301,6 +301,5 @@ var _ = Describe("Specs", func() {
 				Ω(specsNode3.NumberOfOriginalSpecs()).Should(Equal(2))
 			})
 		})
-
 	})
 })

@@ -20,16 +20,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/config"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/codelocation"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/failer"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/remote"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/suite"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/testingtproxy"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/internal/writer"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/reporters"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/reporters/stenographer"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/types"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/config"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/codelocation"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/failer"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/remote"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/suite"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/testingtproxy"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/internal/writer"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/reporters"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/reporters/stenographer"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/types"
 )
 
 const GINKGO_VERSION = config.VERSION
@@ -330,6 +330,27 @@ func PIt(text string, _ ...interface{}) bool {
 func XIt(text string, _ ...interface{}) bool {
 	globalSuite.PushItNode(text, func() {}, types.FlagTypePending, codelocation.New(1), 0)
 	return true
+}
+
+//By allows you to better document large Its.
+//
+//Generally you should try to keep your Its short and to the point.  This is not always possible, however,
+//especially in the context of integration tests that capture a particular workflow.
+//
+//By allows you to document such flows.  By must be called within a runnable node (It, BeforeEach, Measure, etc...)
+//By will simply log the passed in text to the GinkgoWriter.  If By is handed a function it will immediately run the function.
+func By(text string, callbacks ...func()) {
+	preamble := "\x1b[1mSTEP\x1b[0m"
+	if config.DefaultReporterConfig.NoColor {
+		preamble = "STEP"
+	}
+	fmt.Fprintln(GinkgoWriter, preamble+": "+text)
+	if len(callbacks) == 1 {
+		callbacks[0]()
+	}
+	if len(callbacks) > 1 {
+		panic("just one callback per By, please")
+	}
 }
 
 //Measure blocks run the passed in body function repeatedly (determined by the samples argument)

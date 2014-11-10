@@ -1,4 +1,4 @@
-package hydra_worker_map_by_limit
+package main
 
 import (
 	"errors"

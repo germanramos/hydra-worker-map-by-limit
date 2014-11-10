@@ -3,7 +3,7 @@ package stenographer
 import (
 	"sync"
 
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo/types"
+	"github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo/types"
 )
 
 func NewFakeStenographerCall(method string, args ...interface{}) FakeStenographerCall {

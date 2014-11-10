@@ -5,10 +5,11 @@ import (
 	"os"
 	"path/filepath"
 	"time"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/ginkgo"
-	. "github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/gomega"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/gomega/gbytes"
-	"github.com/innotech/hydra-worker-pilot-client/vendors/github.com/onsi/gomega/gexec"
+
+	. "github.com/innotech/hydra-worker-map-by-limit/vendors/github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega/gbytes"
+	"github.com/onsi/gomega/gexec"
 )
 
 var _ = Describe("Watch", func() {
@@ -40,7 +41,7 @@ var _ = Describe("Watch", func() {
 
 	startGinkgoWithGopath := func(args ...string) *gexec.Session {
 		cmd := ginkgoCommand(rootPath, args...)
-		cmd.Env = append([]string{"GOPATH=" + rootPath + ":" + os.Getenv("GOPATH")}, cmd.Env...)
+		cmd.Env = append([]string{"GOPATH=" + rootPath + ":" + os.Getenv("GOPATH")}, os.Environ()...)
 		session, err := gexec.Start(cmd, GinkgoWriter, GinkgoWriter)
 		Ω(err).ShouldNot(HaveOccurred())
 		return session
